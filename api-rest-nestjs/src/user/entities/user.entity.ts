@@ -6,7 +6,7 @@ export class User {
     @PrimaryGeneratedColumn({name: 'idUser'})
     id!: number;
 
-    //Déclaration des collones
+    //Déclaration des colones
     @Column({nullable: false})
     username: string;
 

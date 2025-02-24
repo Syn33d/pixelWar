@@ -5,6 +5,8 @@ import { UserModule } from './user/user.module';
 import { CanvasModule } from './canvas/canvas.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PixelModule } from './pixel/pixel.module';
+import { LogWarModule } from './log-war/log-war.module';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.DB_NAME,
     }),
     //Import des modules 
-    UserModule, CanvasModule, AuthModule
+    UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule
   ],
 
   //Liste des controllers et services
