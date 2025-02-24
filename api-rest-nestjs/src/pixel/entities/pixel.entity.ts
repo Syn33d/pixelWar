@@ -6,7 +6,7 @@ export class Pixel {
     @PrimaryGeneratedColumn({name: 'idPixel'})
     id!: number;
 
-    //Déclaration des colones
+    //Déclaration des colones de coordonnées
     @Column({nullable: false})
     x: number;
 

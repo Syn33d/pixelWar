@@ -1,1 +1,6 @@
-export class CreateLogWarDto {}
+export class CreateLogWarDto {
+    idUser: number;
+    idPixel: number;
+    color: string;
+    placedAt: Date;
+}

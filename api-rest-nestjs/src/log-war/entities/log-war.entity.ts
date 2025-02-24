@@ -6,7 +6,7 @@ export class LogWar {
     @PrimaryGeneratedColumn({name: 'idLogWar'})
     id!: number;
 
-    //Déclaration des colones
+    //Déclaration des colones pour établir un journal de log
     @Column({nullable: false})
     idUser: number;
 
