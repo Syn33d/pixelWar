@@ -2,8 +2,8 @@
 
 ## Tâches : 
 - Interface html Canva (Mathieu)
-- Websocket  
-- API
+- API Websocket 
+- API utilisateur et gestion de bdd
 
 
 
