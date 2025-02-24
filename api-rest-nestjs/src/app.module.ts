@@ -8,14 +8,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    //Configuration de la connexion à la BDD
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
       port: +(process.env.DB_PORT || 3306),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,}),
-    UserModule, CanvasModule, AuthModule],
+      database: process.env.DB_NAME,
+    }),
+    //Import des modules 
+    UserModule, CanvasModule, AuthModule
+  ],
+
+  //Liste des controllers et services
   controllers: [AppController],
   providers: [AppService],
 })
