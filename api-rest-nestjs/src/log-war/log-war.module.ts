@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LogWar } from './entities/log-war.entity';
 
 @Module({
+  //Importation du module TypeOrmModule pour les entités LogWar
   imports: [TypeOrmModule.forFeature([LogWar])],
+
+  //Liste des controllers et des fournisseurs de services
   controllers: [LogWarController],
   providers: [LogWarService],
 })

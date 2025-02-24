@@ -30,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule
   ],
 
-  //Liste des controllers et services
+  //Déclarations des controllers et des fournisseurs de services
   controllers: [AppController],
   providers: [AppService],
 })
