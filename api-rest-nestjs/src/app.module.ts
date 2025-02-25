@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PixelModule } from './pixel/pixel.module';
 import { LogWarModule } from './log-war/log-war.module';
 import { ConfigModule } from '@nestjs/config';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
     }),
     //Import des modules 
-    UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule
+    UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule, WebsocketModule
   ],
 
   //Déclarations des controllers et des fournisseurs de services
