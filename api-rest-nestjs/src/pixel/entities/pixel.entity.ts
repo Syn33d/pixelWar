@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { LogWar } from "../../log-war/entities/log-war.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Pixel {
@@ -12,4 +13,8 @@ export class Pixel {
 
     @Column({nullable: false})
     y: number;
+
+    //Déclaration de la relation entre les entités Pixel et LogWar (un pixel peut être modifié par plusieurs logs)
+    @OneToMany(() => LogWar, logWar => logWar.pixel)
+    logWars: LogWar[];
 }

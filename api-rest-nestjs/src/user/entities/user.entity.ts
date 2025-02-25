@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { LogWar } from "../../log-war/entities/log-war.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -23,4 +24,8 @@ export class User {
     //Déclaration de la date d'expiration du token
     @Column({ type: 'timestamp', nullable: true })
     passwordResetExpires: Date;
+
+    //Déclaration de la relation entre les entités User et LogWar (un utilisateur peut modifier plusieurs logs)
+    @OneToMany(() => LogWar, logWar => logWar.user)
+    logWars: LogWar[];
 }
