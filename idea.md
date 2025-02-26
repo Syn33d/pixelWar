@@ -2,8 +2,8 @@
 
 ## Tâches : 
 - Interface html Canva (Mathieu)
-- Websocket  
-- API
+- API Websocket 
+- API utilisateur et gestion de bdd
 
 
 
@@ -13,4 +13,4 @@
 
 ### Idée 2 : Ajouter des bot avec des tâches précises
 
-### Idée 3 : 
+### Idée 3 : Ajouter un système de template transparent pour une réalisation artistique plus précise  
