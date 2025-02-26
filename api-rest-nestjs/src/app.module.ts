@@ -25,7 +25,6 @@ import { WebsocketModule } from './websocket/websocket.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true,
     }),
     //Import des modules 
     UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule, WebsocketModule

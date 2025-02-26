@@ -11,5 +11,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   //Liste des controllers et des fournisseurs de services
   controllers: [PixelController],
   providers: [PixelService],
+
+  //Export du service PixelService pour pouvoir l'utiliser dans d'autres modules
+  exports: [PixelService],
 })
 export class PixelModule {}
