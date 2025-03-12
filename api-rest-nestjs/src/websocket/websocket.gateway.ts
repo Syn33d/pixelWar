@@ -3,12 +3,12 @@ import { WebsocketService } from './websocket.service';
 import { CreateWebsocketDto } from './dto/create-websocket.dto';
 import { UpdateWebsocketDto } from './dto/update-websocket.dto';
 import { Server, Socket } from 'socket.io';
-import { PixelService } from 'src/pixel/pixel.service';
-import { UpdatePixelDto } from 'src/pixel/dto/update-pixel.dto';
+import { CanvasService } from 'src/canvas/canvas.service';
+import { UpdateCanvaDto } from 'src/canvas/dto/update-canva.dto';
 
 @WebSocketGateway()
 export class WebsocketGateway {
-  constructor(private readonly websocketService: WebsocketService, private readonly pixelService:PixelService) {
+  constructor(private readonly websocketService: WebsocketService, private readonly canvaService:CanvasService) {
     console.log('WebSocketGateway initialized 🚀');
   }
 
@@ -48,11 +48,11 @@ export class WebsocketGateway {
     return this.websocketService.remove(id);
   }
 
-  @SubscribeMessage('updatePixel')
-  async updatePixel(@MessageBody() updatePixelDto: UpdatePixelDto) {
-    console.log('updatePixel event received:', updatePixelDto);
-    const updatePixel = await this.pixelService.update(updatePixelDto.id, updatePixelDto);
-    this.server.emit('updatePixel', updatePixel);
-    return updatePixel;
+  @SubscribeMessage('updateCanva')
+  async updateCanva(@MessageBody() updateCanvaDto: UpdateCanvaDto) {
+    console.log('updateCanva event received:', updateCanvaDto);
+    const updateCanva = await this.canvaService.update(updateCanvaDto.id, updateCanvaDto);
+    this.server.emit('updateCanva', updateCanva);
+    return updateCanva;
   }
 }

@@ -5,10 +5,10 @@ import { UserModule } from './user/user.module';
 import { CanvasModule } from './canvas/canvas.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PixelModule } from './pixel/pixel.module';
-import { LogWarModule } from './log-war/log-war.module';
 import { ConfigModule } from '@nestjs/config';
 import { WebsocketModule } from './websocket/websocket.module';
+import { CanvasLogModule } from './canvas-log/canvas-log.module';
+import { PlayerLogModule } from './player-log/player-log.module';
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import { WebsocketModule } from './websocket/websocket.module';
       autoLoadEntities: true,
     }),
     //Import des modules 
-    UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule, WebsocketModule
+    UserModule, CanvasModule, AuthModule, WebsocketModule, CanvasLogModule, PlayerLogModule
   ],
 
   //Déclarations des controllers et des fournisseurs de services
