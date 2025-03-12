@@ -3,7 +3,7 @@ import { CanvasLogService } from './canvas-log.service';
 import { CreateCanvasLogDto } from './dto/create-canvas-log.dto';
 import { UpdateCanvasLogDto } from './dto/update-canvas-log.dto';
 
-@Controller('canvas-log')
+@Controller('log/canvas')
 export class CanvasLogController {
   constructor(private readonly canvasLogService: CanvasLogService) {}
 

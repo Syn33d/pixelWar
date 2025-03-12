@@ -3,7 +3,7 @@ import { PlayerLogService } from './player-log.service';
 import { CreatePlayerLogDto } from './dto/create-player-log.dto';
 import { UpdatePlayerLogDto } from './dto/update-player-log.dto';
 
-@Controller('player-log')
+@Controller('logs/player')
 export class PlayerLogController {
   constructor(private readonly playerLogService: PlayerLogService) {}
 
