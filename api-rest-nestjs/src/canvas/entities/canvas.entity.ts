@@ -1,8 +1,9 @@
 import { CanvasLog } from "src/canvas-log/entities/canvas-log.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-export class Canva {
+@Entity()
+export class Canvas {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -15,8 +16,8 @@ export class Canva {
     @Column({nullable : false})
     height: number;
     
-    @Column({nullable : false})
-    pixels: Array<string>;
+    @Column({type: 'json', nullable : false})
+    pixels: string[];
 
     @Column({nullable : false})
     createdAt: Date;
@@ -24,7 +25,7 @@ export class Canva {
     @Column({nullable : true})
     updatedAt: Date;
 
-    @ManyToOne(() => User, user => user.canva)
+    @ManyToOne(() => User, user => user.canvas)
     user: User;
 
     @OneToMany(() => CanvasLog, canvasLog => canvasLog.canva)

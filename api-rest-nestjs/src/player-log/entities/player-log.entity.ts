@@ -1,6 +1,7 @@
 import { User } from "src/user/entities/user.entity";
-import { Column, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class PlayerLog {
     @PrimaryGeneratedColumn()
     id: number;
@@ -8,8 +9,8 @@ export class PlayerLog {
     @Column({nullable : false})
     userId: number;
 
-    @Column({nullable : false})
-    pixels: Array<string>;
+    @Column({type: 'json', nullable : false})
+    pixels: string[];
 
     @Column({nullable : false})
     timestamp: Date;

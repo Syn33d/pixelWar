@@ -1,6 +1,7 @@
-import { Canva } from "src/canvas/entities/canva.entity";
-import { Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Canvas } from "src/canvas/entities/canvas.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class CanvasLog {
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,12 +12,12 @@ export class CanvasLog {
     @Column({nullable : false})
     userId: number;
 
-    @Column({nullable : false})
-    pixels: Array<string>;
+    @Column({type: 'json', nullable : false})
+    pixels: string[];
 
     @Column({nullable : false})
     timestamp: Date;
 
-    @ManyToOne(() => Canva, canva => canva.canvasLog)
-    canva: Canva;
+    @ManyToOne(() => Canvas, canva => canva.canvasLog)
+    canva: Canvas;
 }
