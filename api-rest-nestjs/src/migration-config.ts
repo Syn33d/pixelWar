@@ -1,7 +1,6 @@
 import { DataSource } from "typeorm";
 import { config } from "dotenv";
 
-//Chargement des variables d'environnement à partir du fichier .env
 config();
 
 export default new DataSource({
@@ -13,7 +12,6 @@ export default new DataSource({
   database: process.env.DB_NAME,
   entities: [__dirname+"/**/*.entity.ts"],
 
-  //Exécution des migrations à chaque démarrage de l'application
   migrationsRun: true,
   migrations: [__dirname+"/migrations/*.ts"]
 });

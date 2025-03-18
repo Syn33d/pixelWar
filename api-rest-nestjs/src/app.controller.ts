@@ -4,7 +4,7 @@ import { Response } from 'express';
 @Controller()
 export class AppController {
   @Get()
-  getHello(@Res() res: Response): void {
+  getPixelWar(@Res() res: Response): void {
     res.send(`
                                           <!DOCTYPE html>
                                             <html lang="en">
@@ -38,5 +38,10 @@ export class AppController {
                                             </body>
                                             </html>
                                           `);
+  }
+
+  @Get()
+  getHello(): string {
+    return 'Hello World!';
   }
 }
