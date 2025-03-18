@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.grid {
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
