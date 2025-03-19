@@ -13,7 +13,7 @@ export class CanvasLog {
     userId: number;
 
     @Column({type: 'json', nullable : false})
-    pixels: string[];
+    pixels: { x: number; y: number; color: string };
 
     @Column({nullable : false})
     timestamp: Date;

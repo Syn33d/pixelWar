@@ -2,6 +2,6 @@ export class CreateCanvaDto {
     name: string;
     width: number;
     height: number;
-    pixels: Array<string>;
+    pixels: { color: string }[][];
     createdAt: Date;
 }

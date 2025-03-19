@@ -6,5 +6,6 @@ import { CanvasModule } from 'src/canvas/canvas.module';
 @Module({
   imports: [CanvasModule],
   providers: [WebsocketGateway, WebsocketService],
+  exports: [WebsocketGateway],
 })
 export class WebsocketModule {}

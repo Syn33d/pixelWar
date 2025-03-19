@@ -17,7 +17,7 @@ export class Canvas {
     height: number;
     
     @Column({type: 'json', nullable : false})
-    pixels: string[];
+    pixels: { color: string }[][];
 
     @Column({nullable : false})
     createdAt: Date;

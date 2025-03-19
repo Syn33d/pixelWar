@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePlayerLogDto } from './dto/create-player-log.dto';
 import { UpdatePlayerLogDto } from './dto/update-player-log.dto';
+import { PlayerLog } from './entities/player-log.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PlayerLogService {
-  create(createPlayerLogDto: CreatePlayerLogDto) {
-    return 'This action adds a new playerLog';
+  constructor(@InjectRepository(PlayerLog) private readonly data: Repository<PlayerLog>){}
+
+  async create(createPlayerLogDto: CreatePlayerLogDto) {
+    return await this.data.save(createPlayerLogDto);
   }
 
-  findAll() {
-    return `This action returns all playerLog`;
+  async findAll() {
+    return await this.data.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} playerLog`;
+  async findOne(id: number) {
+    return await this.data.findOneBy({id});
   }
 
-  update(id: number, updatePlayerLogDto: UpdatePlayerLogDto) {
-    return `This action updates a #${id} playerLog`;
+  async update(id: number, updatePlayerLogDto: UpdatePlayerLogDto) {
+    return await this.data.update(id, updatePlayerLogDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} playerLog`;
+  async remove(id: number) {
+    return await this.data.delete(id);
   }
 }
