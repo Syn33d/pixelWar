@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Param,
+  Body,
+  Delete,
+} from '@nestjs/common';
 import { CanvasService } from './canvas.service';
 import { CreateCanvaDto } from './dto/create-canva.dto';
 import { UpdateCanvaDto } from './dto/update-canva.dto';
@@ -18,12 +27,20 @@ export class CanvasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.canvasService.findOne(+id);
+  getGrid(@Param('id') id: string) {
+    return this.canvasService.getGrid(+id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvaDto) {
+    return this.canvasService.update(+id, updateCanvaDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvaDto) {
+  partialUpdate(
+    @Param('id') id: string,
+    @Body() updateCanvaDto: UpdateCanvaDto,
+  ) {
     return this.canvasService.update(+id, updateCanvaDto);
   }
 
