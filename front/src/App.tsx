@@ -42,6 +42,16 @@ const App: React.FC = () => {
     } catch (error) {
       console.error('Error saving pixel log:', error);
     }
+
+    try {
+      await axios.put(`http://localhost:3000/canvas/1`, {
+        pixel: { x: row, y: col, color: selectedColor },
+        userId: 1,
+      });
+      console.log('Pixel updated successfully');
+    } catch (error) {
+      console.error('Error updating pixel:', error);
+    }
   };
 
   const handleGenerateTimelapse = async () => {
