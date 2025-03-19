@@ -6,7 +6,6 @@ import { PlayerLogService } from 'src/player-log/player-log.service';
 import { Canvas } from './entities/canvas.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { WebsocketGateway } from 'src/websocket/websocket.gateway';
 
 @Injectable()
 export class CanvasService {
