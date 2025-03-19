@@ -42,14 +42,44 @@ const App: React.FC = () => {
     } catch (error) {
       console.error('Error saving pixel log:', error);
     }
+
+    try {
+      await axios.put(`http://localhost:3000/canvas/1`, {
+        pixel: { x: row, y: col, color: selectedColor },
+        userId: 1,
+      });
+      console.log('Pixel updated successfully');
+    } catch (error) {
+      console.error('Error updating pixel:', error);
+    }
   };
 
   const handleGenerateTimelapse = async () => {
     try {
       const response = await axios.get('http://localhost:3000/canvas-log');
       const canvasLog = response.data;
-      console.log('Canvas Log:', canvasLog);
-      alert('Timelapse generated!');
+
+      const initialGrid = Array.from({ length: 30 }, () => Array(30).fill('#FFFFFF'));
+      const timelapse = [initialGrid];
+
+      canvasLog.forEach((log: any) => {
+        const previousGrid = timelapse[timelapse.length - 1].map(row => [...row]);
+        const { x, y, color } = log.pixels;
+        previousGrid[y][x] = color;
+        timelapse.push(previousGrid);
+      });
+
+      let index = 0;
+      const interval = setInterval(() => {
+        if (index >= timelapse.length) {
+          clearInterval(interval);
+        } else {
+          setGrid(timelapse[index]);
+          index++;
+        }
+      }, 50);
+
+      console.log('Timelapse generated!');
     } catch (error) {
       console.error('Error fetching canvas log:', error);
       alert('Failed to generate timelapse');

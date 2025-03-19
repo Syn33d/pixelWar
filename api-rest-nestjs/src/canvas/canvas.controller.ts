@@ -2,9 +2,10 @@ import {
   Controller,
   Get,
   Post,
-  Body,
+  Put,
   Patch,
   Param,
+  Body,
   Delete,
 } from '@nestjs/common';
 import { CanvasService } from './canvas.service';
@@ -30,8 +31,16 @@ export class CanvasController {
     return this.canvasService.getGrid(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateCanvaDto: UpdateCanvaDto) {
+    return this.canvasService.update(+id, updateCanvaDto);
+  }
+
+  @Patch(':id')
+  partialUpdate(
+    @Param('id') id: string,
+    @Body() updateCanvaDto: UpdateCanvaDto,
+  ) {
     return this.canvasService.update(+id, updateCanvaDto);
   }
 
