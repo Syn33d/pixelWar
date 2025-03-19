@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
-const GRID_SIZE = 30;
-
 const App: React.FC = () => {
-  const [grid, setGrid] = useState<string[][]>(
-    Array(GRID_SIZE).fill(Array(GRID_SIZE).fill('#FFFFFF')),
-  );
+  const [grid, setGrid] = useState<string[][]>([]);
   const [selectedColor, setSelectedColor] = useState<string>('#000000');
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchGrid = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/canvas/1');
+        const canvas = response.data;
+        const filledGrid = canvas.pixels.map((row: { color: string }[]) =>
+          row.map((cell) => cell.color),
+        );
+        setGrid(filledGrid);
+      } catch (error) {
+        console.error('Error fetching grid:', error);
+      }
+    };
+
+    fetchGrid();
+  }, []);
 
   const handleCellClick = async (row: number, col: number) => {
     const newGrid = grid.map((r, rowIndex) =>
@@ -34,13 +44,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleLogin = () => {
-    if (username === 'e' && password === 'e') {
-      setIsLoggedIn(true);
-    } else {
-      alert('Invalid credentials');
-    }
-  };
   const handleGenerateTimelapse = async () => {
     try {
       const response = await axios.get('http://localhost:3000/canvas-log');
@@ -56,46 +59,28 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Pixel War</h1>
-      {!isLoggedIn ? (
-        <div className="login-form">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
+      <>
+        <input
+          type="color"
+          value={selectedColor}
+          onChange={(e) => setSelectedColor(e.target.value)}
+        />
+        <div className="grid">
+          {grid.map((row, rowIndex) => (
+            <div key={rowIndex} className="row">
+              {row.map((cell, colIndex) => (
+                <div
+                  key={colIndex}
+                  className="cell"
+                  style={{ backgroundColor: cell }}
+                  onClick={() => handleCellClick(rowIndex, colIndex)}
+                ></div>
+              ))}
+            </div>
+          ))}
         </div>
-      ) : (
-        <>
-          <input
-            type="color"
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-          />
-          <div className="grid">
-            {grid.map((row, rowIndex) => (
-              <div key={rowIndex} className="row">
-                {row.map((cell, colIndex) => (
-                  <div
-                    key={colIndex}
-                    className="cell"
-                    style={{ backgroundColor: cell }}
-                    onClick={() => handleCellClick(rowIndex, colIndex)}
-                  ></div>
-                ))}
-              </div>
-            ))}
-          </div>
-          <button onClick={handleGenerateTimelapse}>Generate Timelapse</button>
-        </>
-      )}
+        <button onClick={handleGenerateTimelapse}>Generate Timelapse</button>
+      </>
     </div>
   );
 };
