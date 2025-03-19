@@ -11,7 +11,11 @@ import { PlayerLogService } from 'src/player-log/player-log.service';
 import { PlayerLog } from 'src/player-log/entities/player-log.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Canvas, CanvasLog, PlayerLog]), CanvasLogModule, PlayerLogModule],
+  imports: [
+    TypeOrmModule.forFeature([Canvas, CanvasLog, PlayerLog]),
+    CanvasLogModule,
+    PlayerLogModule,
+  ],
   controllers: [CanvasController],
   providers: [CanvasService, CanvasLogService, PlayerLogService],
   exports: [CanvasService],
