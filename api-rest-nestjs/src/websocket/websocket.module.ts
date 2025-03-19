@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { WebsocketService } from './websocket.service';
 import { WebsocketGateway } from './websocket.gateway';
-import { PixelModule } from 'src/pixel/pixel.module';
+import { CanvasModule } from 'src/canvas/canvas.module';
 
 @Module({
-  imports: [PixelModule],
+  imports: [CanvasModule],
   providers: [WebsocketGateway, WebsocketService],
+  exports: [WebsocketGateway],
 })
 export class WebsocketModule {}
