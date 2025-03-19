@@ -5,8 +5,6 @@ import { UserModule } from './user/user.module';
 import { CanvasModule } from './canvas/canvas.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PixelModule } from './pixel/pixel.module';
-import { LogWarModule } from './log-war/log-war.module';
 import { ConfigModule } from '@nestjs/config';
 import { WebsocketModule } from './websocket/websocket.module';
 
@@ -21,13 +19,13 @@ import { WebsocketModule } from './websocket/websocket.module';
       type: 'mysql',
       host: process.env.DB_HOST,
       port: +(process.env.DB_PORT || 3306),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      username: 'root',
+      database: 'm1_typescript',
       autoLoadEntities: true,
+      synchronize: true,
     }),
     //Import des modules 
-    UserModule, CanvasModule, AuthModule, PixelModule, LogWarModule, WebsocketModule
+    UserModule, CanvasModule, AuthModule,WebsocketModule
   ],
 
   //Déclarations des controllers et des fournisseurs de services
