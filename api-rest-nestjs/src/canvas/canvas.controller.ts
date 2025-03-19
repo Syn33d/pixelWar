@@ -18,8 +18,8 @@ export class CanvasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.canvasService.findOne(+id);
+  getGrid(@Param('id') id: string) {
+    return this.canvasService.getGrid(+id);
   }
 
   @Patch(':id')

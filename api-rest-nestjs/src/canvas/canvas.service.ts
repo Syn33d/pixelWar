@@ -26,9 +26,13 @@ export class CanvasService {
     return await this.data.find();
   }
 
-  //Méthode pour trouver un canva par son id
-  async findOne(id: number) {
-    return await this.data.findOneBy({id});
+  // Méthode pour récupérer la grille du canva
+  async getGrid(id: number) {
+    const canva = await this.data.findOneBy({ id });
+    if (!canva) {
+      throw new Error(`Le canva avec l'ID ${id} n'existe pas.`);
+    }
+    return canva.pixels;
   }
 
   //Méthode pour mettre à jour un canva, notifier le front et ajouter une entrée dans les logs
