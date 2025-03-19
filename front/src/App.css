@@ -1,18 +1,76 @@
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+}
+
+.login-form {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+  background-color: #f9f9f9;
+}
+
+.login-form input {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #218838;
 }
 
 .grid {
-  display: inline-block;
+  display: grid;
+  grid-template-columns: repeat(30, 20px);
+  grid-gap: 1px;
+  margin: 20px auto;
+  width: fit-content;
 }
 
 .row {
-  display: flex;
+  display: contents;
 }
 
 .cell {
   width: 20px;
   height: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   cursor: pointer;
+}
+
+.cell:hover {
+  border-color: #999;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }

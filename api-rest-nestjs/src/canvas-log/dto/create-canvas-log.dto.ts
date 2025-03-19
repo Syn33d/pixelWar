@@ -1,6 +1,15 @@
+import { IsInt, IsObject, IsDate } from 'class-validator';
+
 export class CreateCanvasLogDto {
-    canvaId: number;
-    userId: number;
-    pixels: { x: number; y: number; color: string };
-    timestamp: Date;
+  @IsInt()
+  canvaId: number;
+
+  @IsInt()
+  userId: number;
+
+  @IsObject()
+  pixels: { x: number; y: number; color: string };
+
+  @IsDate()
+  timestamp: Date;
 }

@@ -8,5 +8,6 @@ import { CanvasLog } from './entities/canvas-log.entity';
   imports: [TypeOrmModule.forFeature([CanvasLog])],
   controllers: [CanvasLogController],
   providers: [CanvasLogService],
+  exports: [CanvasLogService],
 })
 export class CanvasLogModule {}

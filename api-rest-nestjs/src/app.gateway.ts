@@ -1,4 +1,9 @@
-import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody } from '@nestjs/websockets';
+import {
+  WebSocketGateway,
+  WebSocketServer,
+  SubscribeMessage,
+  MessageBody,
+} from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
 @WebSocketGateway()
@@ -7,7 +12,9 @@ export class AppGateway {
   server: Server;
 
   @SubscribeMessage('updatePixel')
-  handleUpdatePixel(@MessageBody() data: { x: number, y: number, color: string }): void {
+  handleUpdatePixel(
+    @MessageBody() data: { x: number; y: number; color: string },
+  ): void {
     this.server.emit('pixelUpdated', data);
   }
 }

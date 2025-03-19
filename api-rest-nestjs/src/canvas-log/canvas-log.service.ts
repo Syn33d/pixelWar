@@ -7,7 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CanvasLogService {
-  constructor(@InjectRepository(CanvasLog) private readonly data: Repository<CanvasLog>){}
+  constructor(
+    @InjectRepository(CanvasLog) private readonly data: Repository<CanvasLog>,
+  ) {}
 
   async create(createCanvasLogDto: CreateCanvasLogDto) {
     return await this.data.save(createCanvasLogDto);
@@ -18,7 +20,7 @@ export class CanvasLogService {
   }
 
   async findOne(id: number) {
-    return await this.data.findOneBy({id});
+    return await this.data.findOneBy({ id });
   }
 
   async update(id: number, updateCanvasLogDto: UpdateCanvasLogDto) {
