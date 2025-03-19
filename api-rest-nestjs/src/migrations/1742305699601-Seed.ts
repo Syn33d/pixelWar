@@ -5,7 +5,7 @@ export class Seed1742305699601 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         //Insere des utilisateurs
         await queryRunner.query(`
-            INSERT INTO user (username, hash, email)
+            INSERT INTO user (username, password, email)
             VALUES ('user1', 'hash1', 'user1@example.com'),
                    ('user2', 'hash2', 'user2@example.com');
         `);
