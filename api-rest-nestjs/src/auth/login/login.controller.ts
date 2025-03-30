@@ -1,17 +1,31 @@
-import { Body, Controller, Post, UnauthorizedException } from "@nestjs/common";
-import { UserService } from "src/user/user.service";
+import { Controller, Post, UnauthorizedException, Request } from '@nestjs/common';
+import { UserService } from '../../user/user.service';
+import { JwtService } from '@nestjs/jwt';
+import { SignInDto } from '../dto/sign-in.dto';
 
-@Controller('login')
+@Controller('auth/login')
 export class LoginController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService
+  ) { }
 
   @Post()
-  async login(@Body() body: { username: string; password: string }) {
-    const user = await this.userService.validateUser(body.username, body.password);
-    console.log(user);
+  async login(@Request() req): Promise<SignInDto> {
+    const { username, password } = req.body;
+    const user = await this.userService.validateUser(username, password);
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Invalid username or password');
     }
-    return { message: 'Login successful' };
+
+    const payload = { username: user.username, sub: user.id, role: user.role };
+    const token = this.jwtService.sign(payload, { secret: process.env.JWT_SECRET || "banane" });
+
+    return {
+      access_token: token,
+      expires_in: 3600, // 1 hour
+      grant_type: 'password', 
+      scope: '' 
+    };
   }
 }

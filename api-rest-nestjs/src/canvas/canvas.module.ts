@@ -9,15 +9,18 @@ import { PlayerLogModule } from 'src/player-log/player-log.module';
 import { CanvasLogService } from 'src/canvas-log/canvas-log.service';
 import { PlayerLogService } from 'src/player-log/player-log.service';
 import { PlayerLog } from 'src/player-log/entities/player-log.entity';
+import { AuthModule } from 'src/auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Canvas, CanvasLog, PlayerLog]),
     CanvasLogModule,
     PlayerLogModule,
+    AuthModule,
   ],
   controllers: [CanvasController],
-  providers: [CanvasService, CanvasLogService, PlayerLogService],
+  providers: [CanvasService, CanvasLogService, PlayerLogService, JwtService],
   exports: [CanvasService],
 })
 export class CanvasModule {}

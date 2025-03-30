@@ -5,9 +5,9 @@ export class Seed1742305699601 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         //Insere des utilisateurs
         await queryRunner.query(`
-            INSERT INTO user (username, password, email)
-            VALUES ('user1', 'hash1', 'user1@example.com'),
-                   ('user2', 'hash2', 'user2@example.com');
+            INSERT INTO user (username, password, email, role)
+            VALUES ('user1', 'hash1', 'user1@example.com', 'Admin'),
+                   ('user2', 'hash2', 'user2@example.com', 'Staff');
         `);
 
         //Insere un canva

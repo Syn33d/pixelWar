@@ -22,6 +22,14 @@ export class UserService {
     return await this.data.findOneBy({id});
   }
 
+  async findOneById(id: number): Promise<User> {
+    const found = await this.data.findOneBy({ id });
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
+  }
+
   async findOneByEmail(email: string): Promise<User> {
     const found = await this.data.findOneBy({ email });
     if (!found) {

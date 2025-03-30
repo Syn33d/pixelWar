@@ -1,6 +1,8 @@
 import { Canvas } from 'src/canvas/entities/canvas.entity';
 import { PlayerLog } from 'src/player-log/entities/player-log.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../enums/role.enum';
+
 
 @Entity()
 export class User {
@@ -21,6 +23,9 @@ export class User {
 
   @Column({ type: 'timestamp', nullable: true })
   passwordResetExpires: Date;
+
+  @Column({ type: "enum", enum: Role, default: Role.Spectator })
+  role: Role;
 
   @OneToMany(() => Canvas, (canvas) => canvas.user)
   canvas: Canvas[];
