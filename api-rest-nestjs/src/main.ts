@@ -6,6 +6,7 @@ import * as path from 'path';
 
 // Explicitly specify the path to the .env file in the parent directory
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+console.log(path.resolve(__dirname, '../.env') + ' loaded');
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_PORT:', process.env.DB_PORT);
 console.log('DB_USERNAME:', process.env.DB_USERNAME);
