@@ -12,13 +12,13 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 // Explicitly load the .env file located in the parent directory
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 @Module({
   imports: [
     // ConfigModule loads environment variables automatically
     ConfigModule.forRoot({
-      envFilePath: path.resolve(__dirname, '../.env'), // Specify the parent directory for .env
+      envFilePath: path.resolve(__dirname, '../../.env'), // Specify the parent directory for .env
       isGlobal: true, // Makes the configuration globally available
     }),
     TypeOrmModule.forRoot({

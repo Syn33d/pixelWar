@@ -1,7 +1,9 @@
-import { DataSource } from "typeorm";
-import { config } from "dotenv";
+import { DataSource } from 'typeorm';
+import { config } from 'dotenv';
+import * as path from 'path';
 
-config();
+// Explicitly load the .env file located in the parent directory
+config({ path: path.resolve(__dirname, '../../.env') });
 
 export default new DataSource({
   type: 'mysql',
@@ -10,8 +12,8 @@ export default new DataSource({
   username: process.env.DB_USERNAME,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  entities: [__dirname+"../**/*.entity.ts"],
+  entities: [__dirname + '../**/*.entity.ts'],
 
   migrationsRun: true,
-  migrations: [__dirname+"/migrations/*.ts"]
+  migrations: [__dirname + '/migrations/*.ts'],
 });
