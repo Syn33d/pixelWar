@@ -1,43 +1,21 @@
+/* App.css */
+
+/* Style général de l'App */
 .App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 h1 {
   color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
-.login-form {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 300px;
-  background-color: #f9f9f9;
-}
-
-.login-form input {
-  display: block;
-  width: calc(100% - 20px);
-  margin: 10px auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.login-form button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
-}
-
-.login-form button:hover {
-  background-color: #218838;
-}
-
+/* Grille des pixels */
 .grid {
   display: grid;
   grid-template-columns: repeat(30, 20px);
@@ -58,19 +36,35 @@ h1 {
 }
 
 .cell:hover {
-  border-color: #999;
+  transform: scale(1.1);
+  border-color: #888;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
+/* Sélecteur de couleur */
+input[type="color"] {
+  margin-bottom: 15px;
+  cursor: pointer;
+  background-color: transparent;
   border-radius: 5px;
+}
+
+/* Bouton pour timelapse */
+button {
+  padding: 12px 24px;
+  border: none;
   background-color: #007bff;
   color: white;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 20px;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
 }
 
 button:hover {
   background-color: #0056b3;
+}
+
+button:active {
+  background-color: #003f7f;
 }

@@ -1,0 +1,78 @@
+/* Auth.css */
+body{
+    background-color: #f0f2f5;
+}
+
+.auth-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+  }
+  
+  .auth-container h1 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  /* Champs de formulaire */
+  .auth-container input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .auth-container input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Boutons Login/Registre */
+  .auth-container button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+  }
+  
+  .auth-container button:hover {
+    background-color: #1e874b;
+  }
+  
+  .auth-container button:active {
+    background-color: #16a34a;
+  }
+  
+  /* Texte de redirection */
+  .auth-container p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .auth-container a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .auth-container a:hover {
+    text-decoration: underline;
+  }
+  

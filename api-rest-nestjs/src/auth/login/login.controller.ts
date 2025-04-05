@@ -3,7 +3,7 @@ import { UserService } from '../../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from '../dto/sign-in.dto';
 
-@Controller('auth/login')
+@Controller('/login')
 export class LoginController {
   constructor(
     private readonly userService: UserService,
