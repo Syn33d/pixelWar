@@ -29,7 +29,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
       password: process.env.DB_PASSWORD || '', // Default to empty password if not set
       database: process.env.DB_DATABASE || 'test', // Default to test database if not set
       autoLoadEntities: true, // Automatically load entities (useful for development)
-      synchronize: process.env.DB_SYNCHRONIZE === 'true', // Synchronize database schema (use cautiously in production)
+      synchronize: true, // Synchronize database schema (use cautiously in production)
     }),
     UserModule,
     CanvasModule,
