@@ -10,7 +10,7 @@ export default new DataSource({
   host: process.env.DB_HOST,
   port: +(process.env.DB_PORT || 3306),
   username: process.env.DB_USERNAME,
-  database: process.env.DB_NAME,
+  database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
   entities: [__dirname + '../**/*.entity.ts'],
 
