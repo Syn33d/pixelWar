@@ -22,14 +22,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-        
-  migrations:
+
+  backend:
     image: node:18-alpine
-    container_name: pixelwar-migrations
+    container_name: pixelwar-backend
     working_dir: /app
     volumes:
       - ./api-rest-nestjs:/app
-    command: sh -c "npm install && npx typeorm-ts-node-commonjs migration:run -d src/migration-config.ts"
+    command: sh -c "npm install && npm run start:prod"
     depends_on:
       db:
         condition: service_healthy
@@ -41,7 +41,28 @@ services:
       - DB_DATABASE=${DB_DATABASE}
     networks:
       - pixelwar_network
-    
+
+  migrations:
+    image: node:18-alpine
+    container_name: pixelwar-migrations
+    working_dir: /app
+    volumes:
+      - ./api-rest-nestjs:/app
+    command: sh -c "npm install && npx typeorm-ts-node-commonjs migration:run -d src/migration-config.ts"
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    networks:
+      - pixelwar_network
+
 networks:
   pixelwar_network:
     driver: bridge
