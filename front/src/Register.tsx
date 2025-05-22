@@ -10,7 +10,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://172.233.255.18:3001/register', {
+      await axios.post('http://localhost:3001/register', {
         email,
         password,
         username,
