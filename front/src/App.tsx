@@ -41,7 +41,7 @@ const App: React.FC = () => {
     };
 
     try {
-      await axios.put(`http://172.233.255.18:3001/canvas/1`,
+      await axios.put(`http://localhost:3001/canvas/1`,
         {
           pixel: { x: row, y: col, color: selectedColor },
           userId,
@@ -57,7 +57,7 @@ const App: React.FC = () => {
 
   const handleGenerateTimelapse = async () => {
     try {
-      const response = await axios.get('http://172.233.255.18:3001/canvas-log',
+      const response = await axios.get('http://localhost:3001/canvas-log',
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
@@ -103,7 +103,7 @@ const App: React.FC = () => {
 
     const fetchGrid = async () => {
       try {
-        const response = await axios.get('http://172.233.255.18:3001/canvas/1',
+        const response = await axios.get('http://localhost:3001/canvas/1',
           {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
           }
