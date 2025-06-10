@@ -1,4 +1,7 @@
+version: '3.8'
+
 services:
+  # Base de données MySQL
   db:
     image: mysql:8.0
     container_name: pixelwar-mysql
@@ -15,25 +18,34 @@ services:
     networks:
       - pixelwar_network
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    labels:
+      com.pixelwar.description: "MySQL database for PixelWar application"
+      com.pixelwar.service: "database"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${DB_USERNAME}", "-p${DB_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
+  # Backend NestJS avec hot-reload utilisant le Dockerfile
   backend:
-    image: node:18-alpine
+    build:
+      context: ./api-rest-nestjs
+      dockerfile: Dockerfile
+      target: development
     container_name: pixelwar-backend
-    working_dir: /app
     ports:
-      - "3001:3001" 
+      - "3001:3001"
     volumes:
-      - ./api-rest-nestjs:/app
-    command: sh -c "npm install && npm run build && npm run start"
+      - ./api-rest-nestjs:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       db:
         condition: service_healthy
     environment:
+      - NODE_ENV=development
       - DB_HOST=db
       - DB_PORT=3306
       - DB_USERNAME=${DB_USERNAME}
@@ -41,13 +53,23 @@ services:
       - DB_DATABASE=${DB_DATABASE}
     networks:
       - pixelwar_network
+    labels:
+      com.pixelwar.description: "NestJS backend API for PixelWar application"
+      com.pixelwar.service: "api"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
 
+  # Migrations de base de données
   migrations:
-    image: node:18-alpine
+    build:
+      context: ./api-rest-nestjs
+      dockerfile: Dockerfile
+      target: development
     container_name: pixelwar-migrations
-    working_dir: /app
+    working_dir: /usr/src/app
     volumes:
-      - ./api-rest-nestjs:/app
+      - ./api-rest-nestjs:/usr/src/app
+      - ./.env:/usr/src/app/.env
     command: sh -c "npm install && npx typeorm-ts-node-commonjs migration:run -d src/migration-config.ts"
     depends_on:
       db:
@@ -55,6 +77,7 @@ services:
       backend:
         condition: service_started
     environment:
+      - NODE_ENV=development
       - DB_HOST=db
       - DB_PORT=3306
       - DB_USERNAME=${DB_USERNAME}
@@ -62,20 +85,37 @@ services:
       - DB_DATABASE=${DB_DATABASE}
     networks:
       - pixelwar_network
+    labels:
+      com.pixelwar.description: "Database migrations service for PixelWar"
+      com.pixelwar.service: "migrations"
+      com.pixelwar.environment: "development"
+      com.pixelwar.type: "one-shot"
 
+  # Frontend React avec hot-reload utilisant le Dockerfile
   react-app:
-    image: node:18-alpine
-    working_dir: /app
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      target: development
+    container_name: pixelwar-frontend
+    ports:
+      - "3000:3000"
     volumes:
       - ./front:/app
       - /app/node_modules
-    ports:
-      - "3000:3000"
-    command: sh -c "npm install && npm start"
     environment:
-      - CHOKIDAR_USEPOLLING=true  
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:3001
     networks:
       - pixelwar_network
+    depends_on:
+      - backend
+    labels:
+      com.pixelwar.description: "React frontend for PixelWar application"
+      com.pixelwar.service: "frontend"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
 
 networks:
   pixelwar_network:
