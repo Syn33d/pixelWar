@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # Base de données MySQL
+  db:
+    image: mysql:8.0
+    container_name: pixelwar-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - pixelwar_network
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    labels:
+      com.pixelwar.description: "MySQL database for PixelWar application"
+      com.pixelwar.service: "database"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${DB_USERNAME}", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend NestJS avec hot-reload utilisant le Dockerfile
+  backend:
+    build:
+      context: ./api-rest-nestjs
+      dockerfile: Dockerfile
+      target: development
+    container_name: pixelwar-backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./api-rest-nestjs:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    networks:
+      - pixelwar_network
+    labels:
+      com.pixelwar.description: "NestJS backend API for PixelWar application"
+      com.pixelwar.service: "api"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
+
+  # Migrations de base de données
+  migrations:
+    build:
+      context: ./api-rest-nestjs
+      dockerfile: Dockerfile
+      target: development
+    container_name: pixelwar-migrations
+    working_dir: /usr/src/app
+    volumes:
+      - ./api-rest-nestjs:/usr/src/app
+      - ./.env:/usr/src/app/.env
+    command: sh -c "npm install && npx typeorm-ts-node-commonjs migration:run -d src/migration-config.ts"
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    networks:
+      - pixelwar_network
+    labels:
+      com.pixelwar.description: "Database migrations service for PixelWar"
+      com.pixelwar.service: "migrations"
+      com.pixelwar.environment: "development"
+      com.pixelwar.type: "one-shot"
+
+  # Frontend React avec hot-reload utilisant le Dockerfile
+  react-app:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      target: development
+    container_name: pixelwar-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:3001
+    networks:
+      - pixelwar_network
+    depends_on:
+      - backend
+    labels:
+      com.pixelwar.description: "React frontend for PixelWar application"
+      com.pixelwar.service: "frontend"
+      com.pixelwar.environment: "development"
+      com.pixelwar.version: "1.0"
+
+networks:
+  pixelwar_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
